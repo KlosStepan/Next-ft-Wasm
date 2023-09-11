@@ -1,21 +1,74 @@
 'use client';
-import React, { lazy, useState } from 'react';
+import React, { lazy, useEffect, useState } from 'react';
 import Image from 'next/image'
-import { greet } from 'pwnrusthellowasm';
+//import { greet, greetStatic } from 'pwnrusthellowasm';
 //import Click from './click';
 import dynamic from 'next/dynamic';
 
 //const ClientComponent = dynamic(() => import('./click'), { ssr: false });
+async function callGreetStatic() {
+  try {
+    const result = await greetStatic();
+    // If the promise resolves successfully, you can work with the result here.
+    console.log(result);
+    return result;
+  } catch (error) {
+    // If there is an error while awaiting the promise, it will be caught here.
+    console.error("An error occurred:", error);
+    return null;
+  }
+}
+// Define a type for the Rust module
+type RustModule = {
+  greet: (message: string) => null;
+  greetStatic: () => string;
+};
+
 export default function Home() {
   const [count, setCount] = useState(0)
+  const [rustModule, setRustModule] = useState<RustModule | null>(null);
+  useEffect(() => {
+    // Dynamically import the Rust Wasm module
+    import('pwnrusthellowasm').then((module: any) => {
+      setRustModule(module);
+    });
+  }, []);
+  const handleGreetClick = () => {
+    if (rustModule) {
+      const { greet } = rustModule;
+      const result = greet('Calling Rust function greet(&str), popping back JS alert from Rust.');
+      console.log(result);
+    }
+  };
+
+  const handleGreetStaticClick = () => {
+    if (rustModule) {
+      const { greetStatic } = rustModule;
+      const result = greetStatic();
+      console.log(result);
+    }
+  };
+  //const callRes: any = greetStatic();
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       {/*<div onClick={(e) => { handleClick(e) }}>|FIDDLE STUFF|</div>*/}
       {/*<Click />*/}
+      <div><b>Rust Hello Wasm</b>, package: <a href="https://www.npmjs.com/package/pwnrusthellowasm" target="_blank">pwnrusthellowasm</a></div>
       <div>
-        <p>You clicked {count} times</p>
-        <button onClick={() => { greet("Ahoj"); }}>Click me</button>
+        <button onClick={handleGreetClick}><u>|Greet|</u></button>
+        {' '}
+        <button onClick={handleGreetStaticClick}><u>|Greet Static|</u></button> {'/'}{'/'}{'<'}-- Static console logs
       </div>
+      <hr />
+      <div><b>Rust Auth Mock Middleware</b>, package: <a href="https://www.npmjs.com/package/" target="_blank">pwnauthmockmiddleware</a> </div>
+      <div>TODO</div>
+      <div>
+        {/*<hr style={{ height: "1px", border: "none", color: "#333", backgroundColor: "black" }} />*/}
+        ------------------------------------------------------------------------------------------------------------------------------------------------------
+      </div>
+      {/*<div>
+        <p>You clicked {count} times</p>
+    </div>*/}
       <hr />
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
         <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
