@@ -5,28 +5,15 @@ import Image from 'next/image'
 //import Click from './click';
 import dynamic from 'next/dynamic';
 
-//const ClientComponent = dynamic(() => import('./click'), { ssr: false });
-async function callGreetStatic() {
-  try {
-    const result = await greetStatic();
-    // If the promise resolves successfully, you can work with the result here.
-    console.log(result);
-    return result;
-  } catch (error) {
-    // If there is an error while awaiting the promise, it will be caught here.
-    console.error("An error occurred:", error);
-    return null;
-  }
-}
 // Define a type for the Rust module
-type RustModule = {
+type IRustModule = {
   greet: (message: string) => null;
   greetStatic: () => string;
 };
 
 export default function Home() {
   const [count, setCount] = useState(0)
-  const [rustModule, setRustModule] = useState<RustModule | null>(null);
+  const [rustModule, setRustModule] = useState<IRustModule | null>(null);
   useEffect(() => {
     // Dynamically import the Rust Wasm module
     import('pwnrusthellowasm').then((module: any) => {
