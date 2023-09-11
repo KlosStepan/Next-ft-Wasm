@@ -40,14 +40,14 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       {/*<div onClick={(e) => { handleClick(e) }}>|FIDDLE STUFF|</div>*/}
       {/*<Click />*/}
-      <div><b>Rust Hello Wasm</b>, package: <a href="https://www.npmjs.com/package/pwnrusthellowasm" target="_blank">pwnrusthellowasm</a></div>
+      <div><b>Rust/Wasm Hello Wasm</b>, package: <a href="https://www.npmjs.com/package/pwnrusthellowasm" target="_blank">pwnrusthellowasm</a></div>
       <div>
         <button onClick={handleGreetClick}><u>|Greet|</u></button>
         {' '}
         <button onClick={handleGreetStaticClick}><u>|Greet Static|</u></button> {'/'}{'/'}{'<'}-- Static console logs
       </div>
       <hr />
-      <div><b>Rust Auth Mock Middleware</b>, package: <a href="https://www.npmjs.com/package/" target="_blank">pwnauthmockmiddleware</a> </div>
+      <div><b>Rust/Wasm Mock Authentication Middleware</b>, package: <a href="https://www.npmjs.com/package/" target="_blank">pwnauthmockmiddleware</a> </div>
       <div>TODO</div>
       <div>
         {/*<hr style={{ height: "1px", border: "none", color: "#333", backgroundColor: "black" }} />*/}

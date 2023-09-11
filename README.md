@@ -1,10 +1,11 @@
 # Demonstration project Next-ft-Wasm
-We decided to use Next.js since it combines frontend and backend side of the project. We want to test Rust packages compiled to Wasm in various scenarios.  
+We decided to use Next.js since it combines frontend and backend side of the project and it can be useful for further extending and fiddle. We want to test Rust packages compiled to Wasm in various scenarios.  
+--> http://wasm.stkl.cz  
 
 ## Modules demonstration
 We have this modules in our aplication:
-- [x] Hello Wasm, Rust < - > JavaScript intercommunication
-- [ ] Mock authentication middleware
+- [x] Hello Wasm, `Rust` <-> `JavaScript` intercommunication,
+- [ ] Mock Authentication Middleware, `module` running in separate thread for all contexts - `TODO`.
 
 ## Build & run
 Run these commands to build and push the application to dockerhub. 
@@ -12,7 +13,8 @@ Run these commands to build and push the application to dockerhub.
 docker build -t stepanklos/wasm .
 docker run -p 3000:3000 stepanklos/wasm
 docker push stepanklos/wasm
-```
+```  
+Manually triggered automatic deployment in our GitHub Action [workflow](https://github.com/KlosStepan/Next-ft-Wasm/blob/main/.github/workflows/build-push-deploy.yaml).
 # OLD README
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
